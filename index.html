@@ -1692,6 +1692,605 @@
       .marker span {
         color: var(--terracotta);
       }
+
+      /* ---------- GALLERY ---------- */
+      .gallery {
+        background: var(--forest-deep);
+        color: var(--cream);
+        overflow: hidden;
+        position: relative;
+      }
+      /* Kente-stripe accent bar */
+      .gallery::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--ochre) 0px,
+          var(--ochre) 20px,
+          var(--terracotta) 20px,
+          var(--terracotta) 40px,
+          rgba(139, 150, 119, 0.55) 40px,
+          rgba(139, 150, 119, 0.55) 60px,
+          var(--ochre-soft) 60px,
+          var(--ochre-soft) 80px
+        );
+        z-index: 2;
+      }
+      /* Fine dot pattern overlay */
+      .gallery::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'><circle cx='25' cy='25' r='0.8' fill='%23D89A3A' opacity='.1'/></svg>");
+        background-size: 50px 50px;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .gallery .section__inner {
+        position: relative;
+        z-index: 1;
+      }
+      .gallery .eyebrow {
+        color: var(--ochre-soft);
+      }
+      .gallery .eyebrow::before {
+        background: var(--ochre-soft);
+      }
+      .gallery .section__title {
+        color: var(--cream);
+      }
+      .gallery__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 3rem;
+        margin-bottom: 3.5rem;
+      }
+      .gallery__date-badge {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1.4rem 2rem;
+        border: 1px solid rgba(216, 154, 58, 0.3);
+        background: rgba(216, 154, 58, 0.06);
+        border-radius: 4px;
+        text-align: center;
+        transition:
+          border-color 0.4s var(--ease),
+          background 0.4s var(--ease);
+      }
+      .gallery__date-badge:hover {
+        border-color: rgba(216, 154, 58, 0.55);
+        background: rgba(216, 154, 58, 0.1);
+      }
+      .gallery__date-badge .day {
+        font-family: var(--f-display);
+        font-weight: 200;
+        font-size: 3.8rem;
+        line-height: 1;
+        color: var(--ochre-soft);
+        font-variation-settings: "opsz" 144;
+      }
+      .gallery__date-badge .month-year {
+        font-size: 0.68rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--sage);
+        font-weight: 600;
+        margin-top: 0.3rem;
+      }
+      .gallery__date-badge .launch-name {
+        font-family: var(--f-display);
+        font-style: italic;
+        font-size: 0.88rem;
+        color: rgba(244, 237, 224, 0.75);
+        margin-top: 0.6rem;
+        font-variation-settings:
+          "opsz" 144,
+          "WONK" 1;
+      }
+      /* Asymmetric editorial grid */
+      .gallery__grid {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr;
+        grid-template-rows: 270px 270px 300px;
+        gap: 0.75rem;
+        grid-template-areas:
+          "img1 img2"
+          "img1 img3"
+          "img4 img4";
+      }
+      .photo-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        cursor: pointer;
+        background: rgba(44, 58, 40, 0.6);
+      }
+      .photo-item:nth-child(1) {
+        grid-area: img1;
+      }
+      .photo-item:nth-child(2) {
+        grid-area: img2;
+      }
+      .photo-item:nth-child(3) {
+        grid-area: img3;
+      }
+      .photo-item:nth-child(4) {
+        grid-area: img4;
+      }
+      .photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: sepia(0.28) brightness(0.82) saturate(0.88);
+        transition:
+          filter 0.7s var(--ease),
+          transform 0.8s var(--ease);
+        will-change: filter, transform;
+      }
+      .photo-item:nth-child(4) img {
+        object-position: top center;
+      }
+      .photo-item:hover img {
+        filter: sepia(0) brightness(1.02) saturate(1.06);
+        transform: scale(1.06);
+      }
+      /* Vignette */
+      .photo-item::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 50%,
+          rgba(30, 42, 27, 0.45)
+        );
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 0.6s var(--ease);
+      }
+      .photo-item:hover::before {
+        opacity: 0.2;
+      }
+      .photo-item:focus-visible {
+        outline: 2px solid var(--ochre-soft);
+        outline-offset: 3px;
+      }
+      /* Number badge */
+      .photo-item__num {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--terracotta);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--f-display);
+        font-weight: 400;
+        font-size: 0.82rem;
+        color: var(--cream);
+        z-index: 3;
+        font-variation-settings: "opsz" 144;
+        box-shadow: 0 4px 14px rgba(196, 84, 43, 0.45);
+        transition:
+          transform 0.4s var(--ease),
+          background 0.4s var(--ease);
+      }
+      .photo-item:hover .photo-item__num {
+        transform: scale(1.15) rotate(-8deg);
+        background: var(--ochre);
+      }
+      /* Caption slide-up overlay */
+      .photo-item__caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 3.5rem 1.5rem 1.5rem;
+        background: linear-gradient(
+          to top,
+          rgba(30, 42, 27, 0.97) 0%,
+          rgba(30, 42, 27, 0.6) 55%,
+          transparent 100%
+        );
+        transform: translateY(101%);
+        transition: transform 0.55s var(--ease-out);
+        z-index: 2;
+      }
+      .photo-item:hover .photo-item__caption,
+      .photo-item:focus-visible .photo-item__caption {
+        transform: translateY(0);
+      }
+      .photo-item__caption span {
+        display: block;
+        font-size: 0.67rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ochre-soft);
+        margin-bottom: 0.35rem;
+        font-weight: 600;
+      }
+      .photo-item__caption p {
+        font-size: 0.9rem;
+        color: var(--cream);
+        line-height: 1.45;
+      }
+      /* Bottom metadata strip */
+      .gallery__strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(244, 237, 224, 0.12);
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .gallery__strip-text {
+        font-family: var(--f-display);
+        font-style: italic;
+        font-size: clamp(1rem, 1.6vw, 1.25rem);
+        color: rgba(244, 237, 224, 0.6);
+        font-variation-settings:
+          "opsz" 144,
+          "WONK" 1;
+        max-width: 48ch;
+      }
+      .gallery__strip-count {
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--sage);
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(14, 20, 12, 0.97);
+        z-index: 9997;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s var(--ease);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .lightbox.is-open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .lightbox__close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: rgba(244, 237, 224, 0.08);
+        border: 1px solid rgba(244, 237, 224, 0.18);
+        color: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        transition:
+          background 0.3s var(--ease),
+          transform 0.4s var(--ease),
+          border-color 0.3s var(--ease);
+      }
+      .lightbox__close:hover {
+        background: var(--terracotta);
+        border-color: var(--terracotta);
+        transform: rotate(90deg);
+      }
+      .lightbox__content {
+        max-width: 92vw;
+        max-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+        transform: scale(0.88);
+        transition: transform 0.45s var(--ease-out);
+      }
+      .lightbox.is-open .lightbox__content {
+        transform: scale(1);
+      }
+      .lightbox__content img {
+        max-width: 90vw;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 2px;
+        box-shadow: 0 50px 100px rgba(0, 0, 0, 0.75);
+      }
+      .lightbox__caption {
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        color: rgba(244, 237, 224, 0.65);
+        text-align: center;
+        max-width: 56ch;
+        line-height: 1.5;
+      }
+      /* Gallery responsive */
+      @media (max-width: 900px) {
+        .gallery__header {
+          flex-direction: column;
+          gap: 2rem;
+        }
+        .gallery__date-badge {
+          align-self: flex-start;
+        }
+        .gallery__grid {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 220px 220px 240px;
+          grid-template-areas:
+            "img1 img1"
+            "img2 img3"
+            "img4 img4";
+        }
+      }
+      @media (max-width: 580px) {
+        .gallery__grid {
+          grid-template-columns: 1fr;
+          grid-template-rows: 260px 220px 220px 220px;
+          grid-template-areas:
+            "img1"
+            "img2"
+            "img3"
+            "img4";
+        }
+      }
+
+      /* ---------- IN MOTION (VIDEO) ---------- */
+      .motion {
+        background: var(--forest-deep);
+        color: var(--cream);
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid rgba(216, 154, 58, 0.14);
+      }
+      /* Horizontal film-strip lines */
+      .motion::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 119px,
+          rgba(216, 154, 58, 0.04) 119px,
+          rgba(216, 154, 58, 0.04) 120px
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .motion .section__inner {
+        position: relative;
+        z-index: 1;
+      }
+      .motion .eyebrow {
+        color: var(--ochre-soft);
+      }
+      .motion .eyebrow::before {
+        background: var(--ochre-soft);
+      }
+      .motion .section__title {
+        color: var(--cream);
+      }
+      .motion__header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 3rem;
+        margin-bottom: 3.5rem;
+        flex-wrap: wrap;
+      }
+      .motion__header-note {
+        font-size: 0.82rem;
+        color: var(--sage);
+        line-height: 1.5;
+        max-width: 30ch;
+        text-align: right;
+      }
+
+      /* ---- FEATURED VIDEO (large) ---- */
+      .video-featured {
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #0e140c;
+        margin-bottom: 1rem;
+      }
+      .video-facade {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        cursor: pointer;
+        display: block;
+        border: none;
+        padding: 0;
+        background: transparent;
+      }
+      .video-facade img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.72) saturate(0.7);
+        transition:
+          filter 0.6s var(--ease),
+          transform 0.7s var(--ease);
+      }
+      .video-facade:hover img {
+        filter: brightness(0.85) saturate(0.85);
+        transform: scale(1.03);
+      }
+      /* Play button */
+      .video-facade__play {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .video-facade__play-inner {
+        width: 82px;
+        height: 82px;
+        border-radius: 50%;
+        background: rgba(196, 84, 43, 0.9);
+        backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.4s var(--ease),
+          background 0.4s var(--ease),
+          box-shadow 0.4s var(--ease);
+        box-shadow: 0 0 0 0 rgba(196, 84, 43, 0.4);
+        animation: playPulse 2.8s ease-in-out infinite;
+      }
+      @keyframes playPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(196, 84, 43, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 0 20px rgba(196, 84, 43, 0);
+        }
+      }
+      .video-facade:hover .video-facade__play-inner {
+        transform: scale(1.12);
+        background: var(--terracotta);
+        animation: none;
+        box-shadow: 0 20px 50px -10px rgba(196, 84, 43, 0.65);
+      }
+      .video-facade__play-inner svg {
+        margin-left: 5px; /* optical offset for play triangle */
+      }
+      /* Caption bar below featured video */
+      .video-featured__label {
+        padding: 1.1rem 1.4rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .video-featured__label .badge {
+        flex-shrink: 0;
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--terracotta);
+        background: rgba(196, 84, 43, 0.15);
+        border: 1px solid rgba(196, 84, 43, 0.3);
+        border-radius: 999px;
+        padding: 0.25em 0.75em;
+      }
+      .video-featured__label p {
+        font-size: 0.9rem;
+        color: rgba(244, 237, 224, 0.75);
+        line-height: 1.4;
+      }
+
+      /* ---- SECONDARY VIDEOS (2-column) ---- */
+      .motion__secondary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .video-secondary {
+        border-radius: 4px;
+        overflow: hidden;
+        background: #0e140c;
+      }
+      .video-secondary .video-facade__play-inner {
+        width: 58px;
+        height: 58px;
+        animation: none;
+      }
+      .video-secondary .video-facade__play-inner svg {
+        width: 20px;
+        height: 20px;
+      }
+      .video-secondary__label {
+        padding: 0.9rem 1.1rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .video-secondary__label .badge {
+        flex-shrink: 0;
+        font-size: 0.58rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--ochre-soft);
+        background: rgba(216, 154, 58, 0.12);
+        border: 1px solid rgba(216, 154, 58, 0.25);
+        border-radius: 999px;
+        padding: 0.25em 0.7em;
+      }
+      .video-secondary__label p {
+        font-size: 0.82rem;
+        color: rgba(244, 237, 224, 0.65);
+        line-height: 1.35;
+      }
+
+      /* Active state: hide facade, show iframe */
+      .video-facade.is-playing {
+        pointer-events: none;
+      }
+      .video-facade.is-playing img,
+      .video-facade.is-playing .video-facade__play {
+        display: none;
+      }
+      .video-embed {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: none;
+        border: none;
+      }
+      .video-embed.is-active {
+        display: block;
+      }
+
+      /* Motion responsive */
+      @media (max-width: 700px) {
+        .motion__secondary {
+          grid-template-columns: 1fr;
+        }
+        .motion__header-note {
+          text-align: left;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1703,7 +2302,7 @@
     <header class="nav" id="nav">
       <a href="#top" class="nav__brand">
         <img
-          src="LOGO-removebg-preview.png"
+          src="/assets/LOGO-removebg-preview.png"
           alt="Grow You Grow Me Foundation"
           class="nav__logo"
         />
@@ -1717,6 +2316,8 @@
         <a href="#inspiration">Inspiration</a>
         <a href="#objectives">Objectives</a>
         <a href="#story">Our Story</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#videos">Videos</a>
         <a href="#impact">Impact</a>
         <a href="#support" class="nav__cta">Support Us</a>
       </nav>
@@ -1733,7 +2334,6 @@
 
     <!-- ================= HERO ================= -->
     <section class="hero" id="top">
-
       <div class="hero__inner">
         <div class="hero__copy">
           <div class="hero__eyebrow">
@@ -1749,10 +2349,10 @@
           </h1>
           <p class="hero__lead">
             The Grow You Grow Me Foundation is a Cameroonian non‑profit
-            committed to providing free, holistic, quality education utensils to young
-            people — from the vulnerable villages of the Northwest to classrooms
-            across the nation. Because education is the greatest weapon we have
-            to change the world.
+            committed to providing free, holistic, quality education utensils to
+            young people — from the vulnerable villages of the Northwest to
+            classrooms across the nation. Because education is the greatest
+            weapon we have to change the world.
           </p>
           <div class="hero__actions">
             <a href="#support" class="btn btn--primary">
@@ -1866,7 +2466,7 @@
             <span class="hero__dot"></span>
             <span class="hero__dot"></span>
             <img
-              src="LOGO-removebg-preview.png"
+              src="/assets/LOGO-removebg-preview.png"
               alt="Grow You Grow Me Foundation — Education in Service of Humanity"
               class="hero__logo"
             />
@@ -2146,6 +2746,335 @@
       </div>
     </section>
 
+    <!-- ================= GALLERY ================= -->
+    <section class="section gallery" id="gallery">
+      <span class="marker" style="color: rgba(244, 237, 224, 0.35)"
+        ><span style="color: var(--ochre-soft)">◆</span> &nbsp; Launch
+        Gallery</span
+      >
+
+      <div class="section__inner">
+        <div class="gallery__header">
+          <div class="reveal">
+            <div class="eyebrow">4 April 2026 · Bamenda Old Town</div>
+            <h2 class="section__title">
+              The day a <em>dream</em><br />became a foundation.
+            </h2>
+          </div>
+          <div class="gallery__date-badge reveal reveal-delay-2">
+            <div class="day">04</div>
+            <div class="month-year">Apr · 2026</div>
+            <div class="launch-name">Beyond Death Launch</div>
+          </div>
+        </div>
+
+        <div class="gallery__grid">
+          <!-- Image 1 – Large group: spans left column across 2 rows -->
+          <div
+            class="photo-item reveal"
+            tabindex="0"
+            role="button"
+            aria-label="View photo 1 — the founding community"
+            data-src="/assets/gallery1-group.png"
+            data-caption="The founding community gathers at the launch of 'Beyond Death' — Bamenda Old Town, 4th April 2026"
+          >
+            <img
+              src="/assets/gallery1-group.png"
+              alt="GYGM Foundation launch — the founding community gathers, Bamenda 2026"
+              loading="lazy"
+            />
+            <div class="photo-item__num">01</div>
+            <div class="photo-item__caption">
+              <span>The Founding Day</span>
+              <p>
+                The full community — members, scholars and advocates — united in
+                Bamenda Old Town
+              </p>
+            </div>
+          </div>
+
+          <!-- Image 2 – Trio: top right -->
+          <div
+            class="photo-item reveal reveal-delay-1"
+            tabindex="0"
+            role="button"
+            aria-label="View photo 2 — founding circle members"
+            data-src="/assets/gallery2.png"
+            data-caption="Members of the inaugural GYGM founding circle — Bamenda, 4th April 2026"
+          >
+            <img
+              src="/assets/gallery2.png"
+              alt="Members of the inaugural GYGM founding circle — Bamenda, 4th April 2026"
+              loading="lazy"
+            />
+            <div class="photo-item__num">02</div>
+            <div class="photo-item__caption">
+              <span>The Circle</span>
+              <p>Members of the inaugural GYGM founding circle</p>
+            </div>
+          </div>
+
+          <!-- Image 3 – Six people: bottom right -->
+          <div
+            class="photo-item reveal reveal-delay-2"
+            tabindex="0"
+            role="button"
+            aria-label="View photo 3 — education advocates"
+            data-src="/assets/gallery3.png"
+            data-caption="Advocates for education in Cameroon, standing as one — GYGM founding ceremony, Bamenda"
+          >
+            <img
+              src="/assets/gallery3.png"
+              alt="Education advocates at the GYGM founding ceremony"
+              loading="lazy"
+            />
+            <div class="photo-item__num">03</div>
+            <div class="photo-item__caption">
+              <span>United Voices</span>
+              <p>Advocates for education across Cameroon, standing as one</p>
+            </div>
+          </div>
+
+          <!-- Image 4 – Duo: spans full width at bottom -->
+          <div
+            class="photo-item reveal reveal-delay-3"
+            tabindex="0"
+            role="button"
+            aria-label="View photo 4 — founders side by side"
+            data-src="/assets/gallery4.png"
+            data-caption="Formbuwing Dieudonne stands side by side with a fellow educator — the dream takes root in Bamenda"
+          >
+            <img
+              src="/assets/gallery4.png"
+              alt="Formbuwing Dieudonne with fellow educator at the GYGM founding"
+              loading="lazy"
+            />
+            <div class="photo-item__num">04</div>
+            <div class="photo-item__caption">
+              <span>The Dream Takes Root</span>
+              <p>
+                Side by side — founders and educators united in purpose, from
+                Bamenda to the world
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery__strip reveal">
+          <p class="gallery__strip-text">
+            &ldquo;Because by growing you, we ourselves grow.&rdquo;
+          </p>
+          <div class="gallery__strip-count">
+            04 photographs · Bamenda, Cameroon · April 2026
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox overlay -->
+    <div
+      class="lightbox"
+      id="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+    >
+      <button
+        class="lightbox__close"
+        id="lightboxClose"
+        aria-label="Close photo viewer"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M4 4L16 16M16 4L4 16"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+      <div class="lightbox__content">
+        <img src="" alt="" id="lightboxImg" />
+        <p class="lightbox__caption" id="lightboxCaption"></p>
+      </div>
+    </div>
+
+    <!-- ================= IN MOTION (VIDEOS) ================= -->
+    <section class="section motion" id="videos">
+      <span class="marker" style="color: rgba(244, 237, 224, 0.35)"
+        ><span style="color: var(--ochre-soft)">▶</span> &nbsp; In Motion</span
+      >
+
+      <div class="section__inner">
+        <div class="motion__header reveal">
+          <div>
+            <div class="eyebrow">Launch · 4 April 2026</div>
+            <h2 class="section__title">
+              The founding <em>moment</em>,<br />in motion.
+            </h2>
+          </div>
+          <p class="motion__header-note">
+            Watch the speeches, the spirit and the ceremony<br />that brought
+            the foundation to life.
+          </p>
+        </div>
+
+        <!--
+          ╔══════════════════════════════════════════════════════════╗
+          ║  REPLACE THE THREE PLACEHOLDER IDs BELOW WITH YOUR      ║
+          ║  REAL YOUTUBE VIDEO IDs WHEN YOU HAVE THEM.             ║
+          ║                                                          ║
+          ║  A YouTube video ID is the part after ?v= in the URL.   ║
+          ║  e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ       ║
+          ║                                 ──────────────          ║
+          ║  VIDEO_1  → Founder / speaker address (featured)        ║
+          ║  VIDEO_2  → Launch event footage                        ║
+          ║  VIDEO_3  → B-roll / atmosphere                         ║
+          ╚══════════════════════════════════════════════════════════╝
+        -->
+
+        <!-- ---- Featured Video: Founder's Address ---- -->
+        <div class="video-featured reveal reveal-delay-1">
+          <button
+            class="video-facade"
+            id="vFacade1"
+            aria-label="Play founder's address video"
+            data-video-id="VIDEO_1"
+          >
+            <img
+              src="https://img.youtube.com/vi/VIDEO_1/maxresdefault.jpg"
+              alt="Founder's address — GYGM Foundation launch, Bamenda 2026"
+              id="vThumb1"
+              onerror="
+                this.src = 'https://img.youtube.com/vi/VIDEO_1/hqdefault.jpg'
+              "
+            />
+            <div class="video-facade__play" aria-hidden="true">
+              <div class="video-facade__play-inner">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                  <path d="M8 5L22 13L8 21V5Z" fill="white" />
+                </svg>
+              </div>
+            </div>
+          </button>
+          <iframe
+            class="video-embed"
+            id="vEmbed1"
+            title="Founder's address — GYGM Foundation launch"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+            "
+            allowfullscreen
+          ></iframe>
+          <div class="video-featured__label">
+            <span class="badge">Featured</span>
+            <p>
+              Founder's Address — Formbuwing Dieudonne speaks at the inception
+              of the Grow You Grow Me Foundation, Bamenda Old Town
+            </p>
+          </div>
+        </div>
+
+        <!-- ---- Secondary Videos ---- -->
+        <div class="motion__secondary">
+          <!-- Launch Event Footage -->
+          <div class="video-secondary reveal reveal-delay-2">
+            <button
+              class="video-facade"
+              id="vFacade2"
+              aria-label="Play launch event footage"
+              data-video-id="VIDEO_2"
+            >
+              <img
+                src="https://img.youtube.com/vi/VIDEO_2/maxresdefault.jpg"
+                alt="GYGM Foundation launch ceremony footage, Bamenda 2026"
+                id="vThumb2"
+                onerror="
+                  this.src = 'https://img.youtube.com/vi/VIDEO_2/hqdefault.jpg'
+                "
+              />
+              <div class="video-facade__play" aria-hidden="true">
+                <div class="video-facade__play-inner">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M5 3L18 10L5 17V3Z" fill="white" />
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <iframe
+              class="video-embed"
+              id="vEmbed2"
+              title="Launch event footage — GYGM Foundation"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            ></iframe>
+            <div class="video-secondary__label">
+              <span class="badge">Ceremony</span>
+              <p>Launch event highlights — 4th April 2026, Bamenda</p>
+            </div>
+          </div>
+
+          <!-- B-roll / Atmosphere -->
+          <div class="video-secondary reveal reveal-delay-3">
+            <button
+              class="video-facade"
+              id="vFacade3"
+              aria-label="Play atmosphere and b-roll footage"
+              data-video-id="VIDEO_3"
+            >
+              <img
+                src="https://img.youtube.com/vi/VIDEO_3/maxresdefault.jpg"
+                alt="Behind the scenes atmosphere at the GYGM Foundation launch"
+                id="vThumb3"
+                onerror="
+                  this.src = 'https://img.youtube.com/vi/VIDEO_3/hqdefault.jpg'
+                "
+              />
+              <div class="video-facade__play" aria-hidden="true">
+                <div class="video-facade__play-inner">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M5 3L18 10L5 17V3Z" fill="white" />
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <iframe
+              class="video-embed"
+              id="vEmbed3"
+              title="Behind the scenes — GYGM Foundation launch atmosphere"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            ></iframe>
+            <div class="video-secondary__label">
+              <span class="badge">Atmosphere</span>
+              <p>
+                Behind the scenes — the spirit and energy of the founding day
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= VISION ================= -->
     <section class="section vision" id="vision">
       <span class="marker"><span>05</span> &nbsp; Vision</span>
@@ -2361,7 +3290,7 @@
         <div class="contact__grid">
           <div class="reveal">
             <div class="eyebrow">Contact</div>
-            <h2 class="section__title">Let's <em>speak</em>.</h2>
+            <h2 class="section__title">Get <em>Involved</em>.</h2>
             <ul class="contact__list">
               <li>
                 <div class="key">Location</div>
@@ -2451,7 +3380,11 @@
         <div class="footer__top">
           <div>
             <div class="footer__brand-row">
-              <img src="LOGO.jpeg" alt="GYGM Foundation" class="footer__logo" />
+              <img
+                src="/assets/LOGO.jpeg"
+                alt="GYGM Foundation"
+                class="footer__logo"
+              />
             </div>
             <div class="footer__brand">
               Grow You,<br />
@@ -2465,6 +3398,8 @@
               <li><a href="#inspiration">Inspiration</a></li>
               <li><a href="#objectives">Objectives</a></li>
               <li><a href="#story">Our Story</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#videos">Videos</a></li>
               <li><a href="#vision">Vision</a></li>
             </ul>
           </div>
@@ -2545,12 +3480,16 @@
         requestAnimationFrame(animateRing);
       }
       animateRing();
-      document.querySelectorAll("a,button,.objective,.way").forEach((el) => {
-        el.addEventListener("mouseenter", () => ring.classList.add("is-hover"));
-        el.addEventListener("mouseleave", () =>
-          ring.classList.remove("is-hover"),
-        );
-      });
+      document
+        .querySelectorAll("a,button,.objective,.way,.photo-item")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () =>
+            ring.classList.add("is-hover"),
+          );
+          el.addEventListener("mouseleave", () =>
+            ring.classList.remove("is-hover"),
+          );
+        });
 
       /* ---------- SCROLL REVEAL ---------- */
       const io = new IntersectionObserver(
@@ -2635,6 +3574,39 @@
       /* ---------- FOOTER YEAR ---------- */
       document.getElementById("year").textContent = new Date().getFullYear();
 
+      /* ---------- VIDEO FACADE → EMBED ---------- */
+      document.querySelectorAll(".video-facade").forEach((facade) => {
+        facade.addEventListener("click", () => {
+          const videoId = facade.dataset.videoId;
+          if (
+            !videoId ||
+            videoId === "VIDEO_1" ||
+            videoId === "VIDEO_2" ||
+            videoId === "VIDEO_3"
+          ) {
+            // Placeholder — video ID not yet set
+            const notice = document.createElement("div");
+            notice.style.cssText =
+              "position:absolute;inset:0;background:rgba(30,42,27,.92);display:flex;align-items:center;justify-content:center;z-index:10;color:var(--ochre-soft);font-size:.88rem;letter-spacing:.08em;text-align:center;padding:2rem;line-height:1.6";
+            notice.innerHTML =
+              "Video coming soon<br><span style='opacity:.55;font-size:.78rem'>YouTube ID not yet set</span>";
+            facade.parentElement.style.position = "relative";
+            facade.parentElement.appendChild(notice);
+            setTimeout(() => notice.remove(), 2800);
+            return;
+          }
+          // Build embed URL with autoplay
+          const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+          const embedId = facade.id.replace("vFacade", "vEmbed");
+          const embedEl = document.getElementById(embedId);
+          if (embedEl) {
+            embedEl.src = embedUrl;
+            embedEl.classList.add("is-active");
+          }
+          facade.classList.add("is-playing");
+        });
+      });
+
       /* ---------- PARALLAX ON HERO VISUAL ---------- */
       const heroVisual = document.querySelector(".hero__visual");
       window.addEventListener("scroll", () => {
@@ -2642,6 +3614,46 @@
         if (y < window.innerHeight && heroVisual) {
           heroVisual.style.transform = `translateY(${y * 0.15}px)`;
         }
+      });
+
+      /* ---------- GALLERY LIGHTBOX ---------- */
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightboxImg");
+      const lightboxCaption = document.getElementById("lightboxCaption");
+      const lightboxClose = document.getElementById("lightboxClose");
+
+      function openLightbox(src, caption) {
+        lightboxImg.src = src;
+        lightboxImg.alt = caption;
+        lightboxCaption.textContent = caption;
+        lightbox.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lightboxClose.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll(".photo-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          openLightbox(item.dataset.src, item.dataset.caption);
+        });
+        item.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openLightbox(item.dataset.src, item.dataset.caption);
+          }
+        });
+      });
+
+      lightboxClose.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
       });
     </script>
   </body>
